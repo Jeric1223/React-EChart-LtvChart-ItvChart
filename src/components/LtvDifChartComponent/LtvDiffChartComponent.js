@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
-import { apiRequsetLtvDiffChartData } from "./geLtvDiffChartData";
-import { kFormatter } from "../../utils";
+import { apiRequsetLtvDiffChartData } from "./getLtvDiffChartDataa";
+import { kFormatter, dataProcessing, checkMaxFunc } from "../../utils";
 
 const LtvDiffChartComponent = () => {
   const [echartOption, setEchartOption] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState([]);
   const [maxData, setMaxData] = useState(0);
-
-  //데이터 가공하는 함수
-  const dataProcessing = (apiData) => {
-    return apiData.data.measures[0]
-      .map((array, index) => {
-        return array.map((item, chlid_index) => {
-          return [index, chlid_index, item];
-        });
-      })
-      .flat()
-      .map(function (item) {
-        return [item[1], item[0], item[2] || "-"];
-      });
-  };
 
   //api 요청하여 데이터 저장하기
   useEffect(() => {
@@ -44,17 +30,6 @@ const LtvDiffChartComponent = () => {
   useEffect(() => {
     dataStateManage();
   }, [apiData]);
-
-  //MAX값 찾는 함수
-  const checkMaxFunc = (data) => {
-    let Max = 0;
-    for (let i = 0; i < data.length; i++) {
-      if (Max < data[i][2]) {
-        Max = data[i][2];
-      }
-    }
-    return Max;
-  };
 
   //api가 불러오고 max데이터를 추출하는 함수
   useEffect(() => {
