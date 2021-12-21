@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
-import { apiRequsetLtvDiffChartData } from "./getLtvDiffChartDataa";
+import { apiRequsetLtvDiffChartData } from "./getLtvDiffChartData";
 import { kFormatter, dataProcessing, checkMaxFunc } from "../../utils";
 
 const LtvDiffChartComponent = () => {
